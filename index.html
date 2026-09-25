@@ -50,20 +50,20 @@
     --glass-blur: blur(20px) saturate(160%);
     --glass-blur-strong: blur(28px) saturate(180%);
 
-    /* Флюидные размеры — тянутся вместе с окном */
+    /* Контейнер подстраивается под диапазон экрана */
     --container-max: 1280px;
     --container-pad: clamp(16px, 4vw, 32px);
-    --section-pad-y: clamp(64px, 9vw, 110px);
-    --grid-gap: clamp(12px, 2vw, 20px);
-    --grid-gap-lg: clamp(20px, 3vw, 40px);
+    --section-pad-y: clamp(64px, 8vw, 110px);
+    --grid-gap: clamp(12px, 1.5vw, 20px);
+    --grid-gap-lg: clamp(20px, 2.5vw, 40px);
 
     /* Флюидная типографика */
-    --fs-h1: clamp(2.4rem, 7.5vw, 7rem);
-    --fs-h2: clamp(1.9rem, 4.5vw, 4rem);
-    --fs-h3: clamp(1.05rem, 1.6vw, 1.4rem);
-    --fs-body: clamp(0.95rem, 1vw, 1.1rem);
-    --fs-small: clamp(0.82rem, 0.9vw, 0.92rem);
-    --fs-badge: clamp(0.65rem, 0.75vw, 0.75rem);
+    --fs-h1: clamp(2.2rem, 6vw + 0.4rem, 7rem);
+    --fs-h2: clamp(1.7rem, 3.2vw + 0.5rem, 4rem);
+    --fs-h3: clamp(1.05rem, 0.5vw + 0.9rem, 1.4rem);
+    --fs-body: clamp(0.95rem, 0.3vw + 0.85rem, 1.1rem);
+    --fs-small: clamp(0.82rem, 0.15vw + 0.78rem, 0.92rem);
+    --fs-badge: clamp(0.65rem, 0.1vw + 0.62rem, 0.75rem);
 
     --lh-tight: 0.95;
     --lh-normal: 1.55;
@@ -113,7 +113,7 @@
   h3 { font-size: var(--fs-h3); font-weight: 600; }
 
   /* ============================================================
-     LAYOUT-ПРИМИТИВЫ (по образцу vigbo)
+     LAYOUT
      ============================================================ */
   .container {
     max-width: var(--container-max);
@@ -121,13 +121,9 @@
     padding: 0 var(--container-pad);
     width: 100%;
   }
+  .md-section { padding: var(--section-pad-y) 0; }
 
-  .md-section {
-    padding: var(--section-pad-y) 0;
-  }
-
-  /* Авто-адаптивная сетка — сама подбирает количество колонок
-     в зависимости от свободного места. Не требует медиа-запросов. */
+  /* Авто-адаптивная сетка */
   .grid-auto {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--min, 260px), 1fr));
@@ -144,13 +140,13 @@
     gap: 10px;
     background: var(--ink);
     color: var(--white);
-    padding: 20px 34px;
+    padding: clamp(16px, 1.3vw, 20px) clamp(24px, 2.2vw, 34px);
     border-radius: 999px;
     font-weight: 600;
     border: none;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.15s ease;
-    font-size: 1rem;
+    font-size: var(--fs-body);
     font-family: inherit;
     text-align: center;
     letter-spacing: 0.2px;
@@ -177,7 +173,7 @@
   }
   .btn-outline:hover:not(:disabled) { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-  .btn-lg { padding: clamp(18px, 1.5vw, 24px) clamp(28px, 3vw, 44px); font-size: clamp(0.95rem, 1.05vw, 1.05rem); }
+  .btn-lg { padding: clamp(18px, 1.6vw, 24px) clamp(28px, 2.8vw, 44px); font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1.05rem); }
 
   /* ============================================================
      HEADER
@@ -195,7 +191,7 @@
   .logo {
     font-family: 'Unbounded', sans-serif;
     font-weight: 800;
-    font-size: clamp(0.9rem, 1vw, 1.05rem);
+    font-size: clamp(0.9rem, 0.3vw + 0.85rem, 1.05rem);
     letter-spacing: -0.02em;
     color: var(--ink);
     display: flex;
@@ -212,8 +208,8 @@
     box-shadow: 0 0 12px rgba(255, 77, 0, 0.6);
     flex-shrink: 0;
   }
-  .nav-links { display: flex; gap: clamp(16px, 2.5vw, 36px); }
-  .nav-links a { color: var(--ink-soft); font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
+  .nav-links { display: flex; gap: clamp(16px, 2vw, 36px); }
+  .nav-links a { color: var(--ink-soft); font-size: var(--fs-small); font-weight: 600; transition: color 0.2s; }
   .nav-links a:hover { color: var(--orange); }
   .nav-cta {
     display: inline-flex;
@@ -224,7 +220,7 @@
     color: #fff;
     padding: 12px 22px;
     border-radius: 999px;
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 600;
     transition: background 0.2s, transform 0.15s;
     box-shadow: 0 4px 14px rgba(17, 17, 17, 0.18);
@@ -239,7 +235,7 @@
     position: relative;
     z-index: 0;
     background: transparent;
-    padding: clamp(24px, 4vw, 50px) 0 clamp(50px, 7vw, 80px);
+    padding: clamp(24px, 3.5vw, 50px) 0 clamp(50px, 6vw, 80px);
     overflow: clip;
   }
   .l-hero__content { position: relative; z-index: 1; }
@@ -256,7 +252,7 @@
   }
   .hero-visual svg { width: 100%; height: 100%; display: block; }
 
-  .hero-top { display: flex; align-items: center; gap: 24px; margin-bottom: clamp(20px, 3vw, 32px); flex-wrap: wrap; }
+  .hero-top { display: flex; align-items: center; gap: 24px; margin-bottom: clamp(20px, 2.5vw, 32px); flex-wrap: wrap; }
   .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -282,7 +278,7 @@
   }
   @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
 
-  .l-hero h1 { margin-bottom: clamp(28px, 4vw, 44px); }
+  .l-hero h1 { margin-bottom: clamp(28px, 3.5vw, 44px); }
   .l-hero h1 .strike { color: var(--gray-light); text-decoration: line-through; text-decoration-thickness: 0.06em; text-decoration-color: var(--orange); }
   .l-hero h1 .accent { color: var(--orange); }
 
@@ -294,7 +290,7 @@
     margin-top: 32px;
   }
   .hero-text p {
-    font-size: clamp(1rem, 1.3vw, 1.18rem);
+    font-size: clamp(1rem, 0.4vw + 0.92rem, 1.18rem);
     color: var(--ink-soft);
     line-height: var(--lh-normal);
     margin-bottom: 32px;
@@ -326,7 +322,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
-    padding: clamp(20px, 2.5vw, 32px) 0;
+    padding: clamp(20px, 2vw, 32px) 0;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -334,11 +330,11 @@
     border-radius: var(--radius);
     box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
   }
-  .hero-stats .stat { padding: 0 clamp(12px, 2vw, 32px); border-left: 1px solid rgba(255, 255, 255, 0.6); }
+  .hero-stats .stat { padding: 0 clamp(12px, 1.6vw, 32px); border-left: 1px solid rgba(255, 255, 255, 0.6); }
   .hero-stats .stat:first-child { border-left: none; }
   .stat-num {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(1.2rem, 2vw, 2.15rem);
+    font-size: clamp(1.2rem, 1.4vw + 0.8rem, 2.15rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     display: block;
@@ -375,10 +371,10 @@
     display: flex;
     flex: 0 0 auto;
     align-items: center;
-    gap: clamp(36px, 4vw, 60px);
-    padding-right: clamp(36px, 4vw, 60px);
+    gap: clamp(36px, 3.5vw, 60px);
+    padding-right: clamp(36px, 3.5vw, 60px);
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(1rem, 1.4vw, 1.4rem);
+    font-size: clamp(1rem, 0.4vw + 0.9rem, 1.4rem);
     font-weight: 500;
     letter-spacing: -0.01em;
     white-space: nowrap;
@@ -407,27 +403,27 @@
     text-transform: uppercase;
     color: var(--ink-soft);
     font-weight: 500;
-    margin-bottom: clamp(20px, 2.5vw, 32px);
+    margin-bottom: clamp(20px, 2vw, 32px);
   }
   .section-label::before { content: ''; width: 32px; height: 1px; background: var(--ink); }
-  .section-title { margin-bottom: clamp(16px, 2vw, 24px); max-width: 1000px; position: relative; }
+  .section-title { margin-bottom: clamp(16px, 1.6vw, 24px); max-width: 1000px; position: relative; }
   .section-subtitle {
     color: var(--gray);
     max-width: 620px;
-    margin-bottom: clamp(36px, 5vw, 64px);
-    font-size: clamp(1rem, 1.15vw, 1.1rem);
+    margin-bottom: clamp(36px, 4vw, 64px);
+    font-size: clamp(1rem, 0.3vw + 0.92rem, 1.1rem);
     line-height: 1.6;
   }
 
   /* ============================================================
-     PAIN (Знакомо)
+     PAIN
      ============================================================ */
   .pain-list { display: flex; flex-direction: column; gap: 0; }
   .pain-item {
     display: grid;
-    grid-template-columns: clamp(40px, 4vw, 60px) 1fr 1fr;
-    gap: clamp(20px, 3vw, 40px);
-    padding: clamp(24px, 3vw, 40px) 0;
+    grid-template-columns: clamp(40px, 3vw, 60px) 1fr 1fr;
+    gap: clamp(20px, 2.5vw, 40px);
+    padding: clamp(24px, 2.5vw, 40px) 0;
     border-top: 1px solid rgba(17, 17, 17, 0.12);
     align-items: start;
   }
@@ -441,7 +437,7 @@
   }
   .pain-quote {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+    font-size: clamp(1.05rem, 1vw + 0.75rem, 1.5rem);
     font-weight: 500;
     line-height: 1.25;
     letter-spacing: -0.02em;
@@ -454,11 +450,11 @@
   }
 
   /* ============================================================
-     STEPS (авто-сетка)
+     STEPS
      ============================================================ */
   .steps-grid { --min: 240px; }
   .step {
-    padding: clamp(24px, 2.4vw, 32px) clamp(18px, 1.8vw, 24px) clamp(20px, 2.2vw, 28px);
+    padding: clamp(24px, 2vw, 32px) clamp(18px, 1.6vw, 24px) clamp(20px, 1.8vw, 28px);
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -470,7 +466,7 @@
   .step:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(17,17,17,0.12), inset 0 1px 0 var(--glass-highlight); }
   .step-num {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(2.2rem, 3vw, 3rem);
+    font-size: clamp(2.2rem, 1.5vw + 1.8rem, 3rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.05em;
@@ -481,11 +477,11 @@
   .step p { color: var(--gray); font-size: 0.94rem; line-height: 1.55; }
 
   /* ============================================================
-     INCLUDES (авто-сетка)
+     INCLUDES
      ============================================================ */
   .includes-grid { --min: 280px; }
   .include-cell {
-    padding: clamp(24px, 2.2vw, 32px) clamp(20px, 2vw, 28px);
+    padding: clamp(24px, 1.8vw, 32px) clamp(20px, 1.6vw, 28px);
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
@@ -504,11 +500,11 @@
     margin-bottom: 16px;
     display: block;
   }
-  .include-cell h3 { font-size: clamp(1.05rem, 1.2vw, 1.15rem); margin-bottom: 12px; }
+  .include-cell h3 { font-size: clamp(1.05rem, 0.2vw + 1rem, 1.15rem); margin-bottom: 12px; }
   .include-cell p { color: var(--gray); font-size: 0.94rem; line-height: 1.55; }
 
   /* ============================================================
-     PORTFOLIO (авто-сетка)
+     PORTFOLIO
      ============================================================ */
   .portfolio-grid { --min: 240px; }
   .portfolio-item {
@@ -549,7 +545,7 @@
   }
   .portfolio-label {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+    font-size: clamp(1.2rem, 0.4vw + 1.1rem, 1.4rem);
     font-weight: 600;
     letter-spacing: -0.02em;
     margin-bottom: 8px;
@@ -568,7 +564,7 @@
     border: 1px solid var(--glass-border);
     border-left: 4px solid var(--orange);
     border-radius: var(--radius-lg);
-    padding: clamp(36px, 5vw, 80px) clamp(24px, 4vw, 64px);
+    padding: clamp(36px, 4vw, 80px) clamp(24px, 3.5vw, 64px);
     position: relative;
     overflow: hidden;
     box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
@@ -603,7 +599,7 @@
   .offer p { color: var(--gray); font-size: 1.05rem; line-height: 1.55; margin-bottom: 32px; }
   .offer-price {
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(2.4rem, 5vw, 5rem);
+    font-size: clamp(2.4rem, 3.5vw + 1rem, 5rem);
     font-weight: 700;
     letter-spacing: -0.05em;
     color: var(--orange);
@@ -636,13 +632,13 @@
   }
 
   /* ============================================================
-     CONTACTS (авто-сетка)
+     CONTACTS
      ============================================================ */
   .contact-direct { --min: 220px; max-width: 1000px; }
   .btn-contact {
     flex-direction: column;
     gap: 4px;
-    padding: clamp(20px, 2vw, 26px) clamp(20px, 2vw, 28px);
+    padding: clamp(20px, 1.6vw, 26px) clamp(20px, 1.8vw, 28px);
     line-height: 1.25;
     width: 100%;
   }
@@ -650,16 +646,12 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-size: clamp(1rem, 1.1vw, 1.08rem);
+    font-size: clamp(1rem, 0.2vw + 0.95rem, 1.08rem);
     justify-content: center;
   }
-  .btn-contact .icon {
-    width: 22px; height: 22px;
-    flex-shrink: 0;
-    display: inline-block;
-  }
+  .btn-contact .icon { width: 22px; height: 22px; flex-shrink: 0; display: inline-block; }
   .btn-contact .sub-line {
-    font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+    font-size: clamp(0.72rem, 0.15vw + 0.7rem, 0.82rem);
     font-weight: 400;
     opacity: 0.9;
     word-break: break-all;
@@ -687,7 +679,7 @@
   .faq-item summary {
     cursor: pointer;
     font-family: 'Unbounded', sans-serif;
-    font-size: clamp(1rem, 1.15vw, 1.08rem);
+    font-size: clamp(1rem, 0.2vw + 0.95rem, 1.08rem);
     font-weight: 500;
     list-style: none;
     display: flex;
@@ -698,7 +690,7 @@
     letter-spacing: -0.01em;
     -webkit-user-select: none;
     user-select: none;
-    padding: clamp(18px, 2vw, 24px) clamp(20px, 2.2vw, 28px);
+    padding: clamp(18px, 1.6vw, 24px) clamp(20px, 1.8vw, 28px);
   }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary::after {
@@ -712,7 +704,7 @@
   }
   .faq-item[open] summary::after { transform: rotate(45deg); }
   .faq-item p {
-    padding: 0 clamp(20px, 2.2vw, 28px) clamp(18px, 2vw, 24px);
+    padding: 0 clamp(20px, 1.8vw, 28px) clamp(18px, 1.6vw, 24px);
     margin-top: 0;
     color: var(--gray);
     font-size: 0.98rem;
@@ -727,7 +719,7 @@
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
     color: var(--gray-light);
-    padding: clamp(50px, 6vw, 80px) 0 clamp(28px, 3vw, 40px);
+    padding: clamp(50px, 5vw, 80px) 0 clamp(28px, 2.5vw, 40px);
     position: relative;
     z-index: 3;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -737,7 +729,7 @@
     display: grid;
     grid-template-columns: 1.6fr 1fr 1fr;
     gap: var(--grid-gap-lg);
-    margin-bottom: clamp(36px, 5vw, 60px);
+    margin-bottom: clamp(36px, 4vw, 60px);
   }
   .footer-grid .logo { margin-bottom: 20px; color: var(--cream); }
   .footer-grid h4 {
@@ -808,26 +800,84 @@
   }
 
   /* ============================================================
-     ПРОМЕЖУТОЧНЫЕ БРЕЙКПОИНТЫ
-     Здесь только то, что НЕ покрывается auto-fit сеткой
+     АДАПТИВ ПОД КОНКРЕТНЫЕ ДИАПАЗОНЫ
      ============================================================ */
 
-  /* Планшет и уже: hero становится одноколоночным */
-  @media (max-width: 900px) {
-    .hero-bottom { grid-template-columns: 1fr; gap: 32px; }
+  /* ----- 1) Full HD и выше: 1701px+ (1920, 2K, 4K) ----- */
+  @media (min-width: 1701px) {
+    :root {
+      --container-max: 1440px;
+      --container-pad: 48px;
+      --section-pad-y: 130px;
+    }
+    .hero-visual {
+      width: min(1000px, 52vw);
+      height: min(1000px, 52vw);
+      top: -70px;
+      right: -90px;
+    }
+  }
+
+  /* ----- 2) Широкий десктоп: 1351–1700px (1440, 1600) ----- */
+  @media (min-width: 1351px) and (max-width: 1700px) {
+    :root {
+      --container-max: 1360px;
+      --container-pad: 40px;
+      --section-pad-y: 120px;
+    }
+    .hero-visual {
+      width: min(900px, 53vw);
+      height: min(900px, 53vw);
+      top: -60px;
+      right: -80px;
+    }
+  }
+
+  /* ----- 3) Базовый десктоп: 901–1350px (1024, 1280) -----
+     Базовые правила уже действуют (см. :root).
+     Здесь только точечные корректировки. */
+  @media (min-width: 901px) and (max-width: 1350px) {
+    .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  }
+
+  /* ----- 4) Маленький планшет: 481–900px (768) ----- */
+  @media (min-width: 481px) and (max-width: 900px) {
+    :root {
+      --container-max: 100%;
+      --container-pad: 32px;
+      --section-pad-y: 90px;
+      --grid-gap: 16px;
+      --grid-gap-lg: 32px;
+    }
+    .hero-bottom { grid-template-columns: 1fr; gap: 36px; }
     .offer-inner { grid-template-columns: 1fr; gap: 32px; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .footer-grid > div:first-child { grid-column: 1 / -1; }
-    .pain-item { grid-template-columns: 40px 1fr; }
+    .pain-item { grid-template-columns: 40px 1fr; gap: 20px; }
     .pain-note { grid-column: 2; }
+    .hero-visual {
+      top: -30px;
+      right: -30px;
+      width: min(500px, 55vw);
+      height: min(500px, 55vw);
+    }
   }
 
-  /* Мобильный — включается ниже 720px */
-  @media (max-width: 720px) {
+  /* ----- 5) Мобильный: до 480px (375, 390, 414, 430) ----- */
+  @media (max-width: 480px) {
+    :root {
+      --container-pad: 18px;
+      --section-pad-y: 64px;
+      --grid-gap: 12px;
+      --grid-gap-lg: 24px;
+      --fs-h1: clamp(2rem, 9vw, 2.6rem);
+      --fs-h2: clamp(1.5rem, 6.5vw, 1.9rem);
+    }
+
     .nav-links { display: none; }
     .hero-stats { display: none; }
 
-    /* Мобильная копия блока статов — full-bleed, показывается только тут */
+    /* Мобильная плашка статов */
     .hero-stats-mobile {
       display: block;
       position: relative;
@@ -850,10 +900,10 @@
     }
     .hero-stats-mobile .stat:first-child { padding: 0; border-top: none; }
 
-    /* Плашка «Свободен для проектов» — короче на 20px */
+    /* Плашка «Свободен для проектов» короче на 20px */
     .hero-badge { padding: 8px 6px; }
 
-    /* Солнце уменьшено вдвое и сдвинуто к правому краю */
+    /* Солнце: уменьшено вдвое + сдвинуто вправо + опущено */
     .hero-visual {
       top: 0;
       right: -15px;
@@ -862,18 +912,21 @@
       height: 50vw;
     }
 
-    .footer-grid { grid-template-columns: 1fr; }
-    .footer-grid > div:first-child { grid-column: auto; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .hero-cta .btn { width: 100%; }
     .pain-item { grid-template-columns: 1fr; gap: 12px; }
     .pain-note { grid-column: 1; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-grid > div:first-child { grid-column: auto; }
 
     .btn:hover:not(:disabled) { transform: none; }
     .btn:active:not(:disabled) { transform: scale(0.97); }
   }
 
-  /* Очень маленькие экраны */
-  @media (max-width: 400px) {
-    .logo { font-size: 0.85rem; gap: 8px; }
+  /* ----- Очень узкие экраны: до 374px ----- */
+  @media (max-width: 374px) {
+    :root { --container-pad: 14px; }
+    .logo { font-size: 0.82rem; gap: 8px; }
     .logo-dot { width: 8px; height: 8px; }
     .hero-visual {
       top: -10px;
@@ -883,25 +936,13 @@
     }
   }
 
-  /* Очень широкие экраны — держим пропорции */
-  @media (min-width: 1440px) {
-    .hero-visual {
-      width: min(900px, 55vw);
-      height: min(900px, 55vw);
-      top: -60px;
-      right: -80px;
-    }
-  }
-
   /* ============================================================
      VIEWPORT-КЛАССЫ (по образцу vigbo .adaptive-*)
-     Скрипт вешает один из них на <html>:
-     .adaptive-desktop | .adaptive-tablet | .adaptive-mobile
-     Можно использовать для точечных правок поверх медиа-запросов.
+     Пять классов — под пять диапазонов экранов
      ============================================================ */
   html.adaptive-mobile .nav-links { display: none; }
-  html.adaptive-tablet .nav-links { gap: 18px; }
-  html.adaptive-tablet .nav-links a { font-size: 0.86rem; }
+  html.adaptive-tablet .nav-links { gap: 20px; }
+  html.adaptive-tablet .nav-links a { font-size: 0.88rem; }
 </style>
 </head>
 <body>
@@ -1000,7 +1041,6 @@
   </div>
 </section>
 
-<!-- Мобильная копия плашки статов -->
 <div class="hero-stats-mobile">
   <div class="hero-stats-mobile-inner">
     <div class="stat">
@@ -1018,10 +1058,8 @@
   </div>
 </div>
 
-<!-- ============ CONTENT LAYER ============ -->
 <div class="l-content-layer">
 
-  <!-- Marquee -->
   <div class="marquee">
     <div class="marquee-track">
       <div class="marquee-group">
@@ -1051,7 +1089,6 @@
     </div>
   </div>
 
-  <!-- Знакомо -->
   <section id="know" class="md-section">
     <div class="container">
       <span class="section-label">Знакомо</span>
@@ -1072,7 +1109,6 @@
     </div>
   </section>
 
-  <!-- Как работает -->
   <section id="how" class="md-section">
     <div class="container">
       <span class="section-label">Процесс</span>
@@ -1104,7 +1140,6 @@
     </div>
   </section>
 
-  <!-- Что входит -->
   <section id="includes" class="md-section">
     <div class="container">
       <span class="section-label">Что входит</span>
@@ -1146,7 +1181,6 @@
     </div>
   </section>
 
-  <!-- Портфолио -->
   <section id="portfolio" class="md-section">
     <div class="container">
       <span class="section-label">Работы</span>
@@ -1179,7 +1213,6 @@
     </div>
   </section>
 
-  <!-- Спецпредложение -->
   <section class="md-section">
     <div class="container">
       <div class="offer">
@@ -1205,7 +1238,6 @@
     </div>
   </section>
 
-  <!-- Контакты -->
   <section id="contact" class="md-section">
     <div class="container">
       <span class="section-label">Связаться</span>
@@ -1253,7 +1285,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq" class="md-section">
     <div class="container">
       <span class="section-label">Вопросы</span>
@@ -1277,7 +1308,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="l-footer">
     <div class="container">
       <div class="footer-grid">
@@ -1310,7 +1340,6 @@
 
 </div>
 
-<!-- Кнопка «наверх» -->
 <button class="md-btn-go-up" id="toTop" aria-label="Наверх">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="m18 15-6-6-6 6"/>
@@ -1319,31 +1348,31 @@
 
 <script>
   /* ============================================================
-     VIEWPORT-КЛАССЫ (по образцу vigbo .adaptive-*)
-     Вешаем на <html> один из трёх классов по аналогии с тем сайтом:
-     - adaptive-desktop (≥ 1000px)
-     - adaptive-tablet  (720–999px)
-     - adaptive-mobile  (< 720px)
-     Это даёт CSS-правилам точное знание типа устройства, работает
-     параллельно с медиа-запросами и помогает там, где браузер
-     нестандартно считает ширину (зум, DPR, узкие Android-экраны).
+     VIEWPORT-КЛАССЫ — пять диапазонов экранов
+     - adaptive-mobile   < 481px   (375, 390, 414, 430)
+     - adaptive-tablet   481–900   (768)
+     - adaptive-desktop  901–1350  (1024, 1280)
+     - adaptive-wide     1351–1700 (1440, 1600)
+     - adaptive-fullhd   1701+     (1920, 2K, 4K)
      ============================================================ */
   (function() {
     var root = document.documentElement;
     var rafId = null;
-    var bpTablet = 1000;
-    var bpMobile = 720;
+
+    function classify(w) {
+      if (w < 481) return 'adaptive-mobile';
+      if (w < 901) return 'adaptive-tablet';
+      if (w < 1351) return 'adaptive-desktop';
+      if (w < 1701) return 'adaptive-wide';
+      return 'adaptive-fullhd';
+    }
 
     function updateViewportClass() {
       var w = window.innerWidth;
-      root.classList.remove('adaptive-desktop', 'adaptive-tablet', 'adaptive-mobile');
-      if (w >= bpTablet) {
-        root.classList.add('adaptive-desktop');
-      } else if (w >= bpMobile) {
-        root.classList.add('adaptive-tablet');
-      } else {
-        root.classList.add('adaptive-mobile');
-      }
+      var next = classify(w);
+      if (root.classList.contains(next)) return;
+      root.classList.remove('adaptive-mobile', 'adaptive-tablet', 'adaptive-desktop', 'adaptive-wide', 'adaptive-fullhd');
+      root.classList.add(next);
     }
 
     function scheduleUpdate() {
@@ -1373,11 +1402,8 @@
   var toTop = document.getElementById('toTop');
   if (toTop) {
     var toggleToTop = function() {
-      if (window.scrollY > 400) {
-        toTop.classList.add('is-visible');
-      } else {
-        toTop.classList.remove('is-visible');
-      }
+      if (window.scrollY > 400) toTop.classList.add('is-visible');
+      else toTop.classList.remove('is-visible');
     };
     window.addEventListener('scroll', toggleToTop, { passive: true });
     toggleToTop();
