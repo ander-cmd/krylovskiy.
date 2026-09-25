@@ -764,15 +764,13 @@
     .hero h1 { transform: none; }
     .hero-text p { transform: none; }
 
-    /* Солнце полностью помещается в экран:
-       right: 0 — правый край не уходит за экран;
-       100vw — весь viewBox вписывается в ширину экрана */
+    /* Рисунок уменьшен вдвое (50vw) и сдвинут вправо на 15px */
     .hero-visual {
       top: -20px;
-      right: 0;
+      right: -15px;
       left: auto;
-      width: 100vw;
-      height: 100vw;
+      width: 50vw;
+      height: 50vw;
     }
 
     .hero-stats-mobile {
@@ -829,12 +827,12 @@
     .marquee-track { animation-duration: 11s; -webkit-animation-duration: 11s; }
     .marquee-group { font-size: 0.98rem; gap: 36px; padding-right: 36px; }
 
-    /* То же поведение, что и на 720px — весь рисунок видно */
+    /* То же поведение, что и на 720px — рисунок уменьшен вдвое и сдвинут вправо */
     .hero-visual {
       top: -20px;
-      right: 0;
-      width: 100vw;
-      height: 100vw;
+      right: -15px;
+      width: 50vw;
+      height: 50vw;
     }
 
     .faq-item summary { font-size: 1rem; }
