@@ -779,10 +779,9 @@
   }
 
   /* ============================================================
-     АДАПТИВ ПОД НОВЫЕ ДИАПАЗОНЫ
+     АДАПТИВ ПОД ДИАПАЗОНЫ
      ============================================================ */
 
-  /* ===== ДЕСКТОП: 992–1350px (базовые) ===== */
   @media (min-width: 992px) and (max-width: 1350px) {
     :root {
       --container-max: 1280px;
@@ -792,7 +791,6 @@
     .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
   }
 
-  /* ===== ШИРОКИЙ ДЕСКТОП: 1351–1700px ===== */
   @media (min-width: 1351px) and (max-width: 1700px) {
     :root {
       --container-max: 1360px;
@@ -807,7 +805,6 @@
     }
   }
 
-  /* ===== FULL HD И ВЫШЕ: 1701px+ ===== */
   @media (min-width: 1701px) {
     :root {
       --container-max: 1440px;
@@ -822,7 +819,6 @@
     }
   }
 
-  /* ===== ПЛАНШЕТЫ: 768–991px ===== */
   @media (min-width: 768px) and (max-width: 991px) {
     :root {
       --container-pad: 32px;
@@ -830,21 +826,18 @@
       --grid-gap: 16px;
       --grid-gap-lg: 32px;
     }
-    /* Hero складывается в одну колонку */
     .hero-bottom { grid-template-columns: 1fr; gap: 36px; }
     .offer-inner { grid-template-columns: 1fr; gap: 32px; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .footer-grid > div:first-child { grid-column: 1 / -1; }
     .pain-item { grid-template-columns: 40px 1fr; gap: 20px; }
     .pain-note { grid-column: 2; }
-    /* Солнце уменьшено и держится в правом верхнем углу */
     .hero-visual {
       top: -30px;
       right: -30px;
       width: min(500px, 55vw);
       height: min(500px, 55vw);
     }
-    /* Статы скрываются в общей сетке, показывается мобильная плашка */
     .hero-stats { display: none; }
     .hero-stats-mobile {
       display: block;
@@ -904,6 +897,7 @@
     .hero-stats-mobile .stat {
       padding: 14px 0 0 0;
       border-top: 1px solid rgba(255,255,255,0.6);
+      text-align: center;
     }
     .hero-stats-mobile .stat:first-child { padding: 0; border-top: none; }
 
@@ -919,13 +913,91 @@
       height: 50vw;
     }
 
-    .hero-cta { flex-direction: column; align-items: stretch; }
-    .hero-cta .btn { width: 100%; }
-    .pain-item { grid-template-columns: 1fr; gap: 12px; }
-    .pain-note { grid-column: 1; }
+    /* ============================================================
+       ЦЕНТРИРОВАНИЕ ТЕКСТА И КНОПОК НА МОБИЛЬНОЙ
+       ============================================================ */
+
+    /* --- HERO --- */
+    .l-hero__content { text-align: center; }
+    .hero-top { justify-content: center; }
+    .hero-text p {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-cta .btn { width: 100%; max-width: 320px; }
+    .hero-trust {
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* --- СЕКЦИИ ПОСЛЕ БЕГУЩЕЙ СТРОКИ --- */
+    .md-section { text-align: center; }
+
+    .section-label {
+      /* Сам лэйбл остаётся inline-flex, но родитель центрирует его как inline-элемент */
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-title {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    /* Карточки шагов/инклюдов/портфолио — центрируем текст внутри */
+    .step,
+    .include-cell,
+    .portfolio-item { text-align: center; }
+
+    /* Пункты «Знакомо» — три столбца складываются в один, центрируем */
+    .pain-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      text-align: center;
+    }
+    .pain-note {
+      grid-column: 1;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Спецпредложение — центр */
+    .offer-inner { text-align: center; }
+    .offer-list li {
+      /* пункты списка центрируем — стрелка встаёт рядом с текстом */
+      justify-content: center;
+      text-align: left;
+    }
+    .offer-price { margin-left: auto; margin-right: auto; }
+
+    /* Контакты — кнопки уже в grid-auto и тянутся на всю ширину,
+       дополнительно ничего не нужно */
+    .contact-direct { margin-left: auto; margin-right: auto; }
+
+    /* FAQ — заголовки вопросов центрируем,
+       но summary остаётся flex space-between (иконка + справа) */
+    .faq-list { margin-left: auto; margin-right: auto; }
+    .faq-item summary { text-align: left; }
+    .faq-item p { text-align: center; }
+
+    /* Footer — центр */
+    .l-footer { text-align: center; }
     .footer-grid { grid-template-columns: 1fr; }
     .footer-grid > div:first-child { grid-column: auto; }
+    .footer-grid .logo { justify-content: center; }
 
+    /* Общие отключения ховеров на тач-устройствах */
     .btn:hover:not(:disabled) { transform: none; }
     .btn:active:not(:disabled) { transform: scale(0.97); }
   }
@@ -1352,12 +1424,12 @@
 
 <script>
   /* ============================================================
-     VIEWPORT-КЛАССЫ — новые пять диапазонов:
-     - adaptive-mobile   < 768     (мобильные телефоны, 320–767)
-     - adaptive-tablet   768–991   (планшеты)
-     - adaptive-desktop  992–1350  (базовый десктоп)
-     - adaptive-wide     1351–1700 (широкий десктоп)
-     - adaptive-fullhd   1701+     (Full HD и выше)
+     VIEWPORT-КЛАССЫ — пять диапазонов:
+     adaptive-mobile   < 768
+     adaptive-tablet   768–991
+     adaptive-desktop  992–1350
+     adaptive-wide     1351–1700
+     adaptive-fullhd   1701+
      ============================================================ */
   (function() {
     var root = document.documentElement;
