@@ -736,6 +736,9 @@
   .to-top:active { transform: translateY(0) scale(0.94); }
   .to-top svg { width: 22px; height: 22px; display: block; }
 
+  /* ============================================================
+     МЕДИА-ЗАПРОСЫ (по ширине окна)
+     ============================================================ */
   @media (max-width: 1000px) {
     .hero-bottom { grid-template-columns: 1fr; gap: 40px; }
     .steps-grid { grid-template-columns: repeat(2, 1fr); }
@@ -764,10 +767,8 @@
     .hero h1 { transform: none; }
     .hero-text p { transform: none; }
 
-    /* Плашка «Свободен для проектов» — короче на 20px (по 10px с каждой стороны) */
     .hero-badge { padding: 8px 6px; }
 
-    /* Солнце уменьшено вдвое, сдвинуто вправо на 15px и опущено */
     .hero-visual {
       top: 0;
       right: -15px;
@@ -830,7 +831,6 @@
     .marquee-track { animation-duration: 11s; -webkit-animation-duration: 11s; }
     .marquee-group { font-size: 0.98rem; gap: 36px; padding-right: 36px; }
 
-    /* То же поведение, что и на 720px */
     .hero-visual {
       top: 0;
       right: -15px;
@@ -841,6 +841,17 @@
     .faq-item summary { font-size: 1rem; }
     .hero-stats-mobile-inner { padding: 20px; }
   }
+
+  /* ============================================================
+     КЛАССЫ VIEWPORT (по логике того сайта)
+     Скрипт ниже вешает на <html> один из классов:
+     .is-desktop | .is-tablet | .is-mobile
+     Работает наравне с медиа-запросами и срабатывает даже
+     там, где браузер странно считает ширину (зум, DPR и т.д.).
+     ============================================================ */
+  html.is-mobile .nav-links { display: none; }
+  html.is-tablet .nav-links { gap: 20px; }
+  html.is-tablet .nav-links a { font-size: 0.86rem; }
 </style>
 </head>
 <body>
@@ -1243,11 +1254,44 @@
 </button>
 
 <script>
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  /* ============================================================
+     КЛАССЫ VIEWPORT — берём логику из того сайта
+     Определяем тип устройства и вешаем один класс на <html>:
+     .is-desktop (≥ 1000px) | .is-tablet (720–1000px) | .is-mobile (< 720px)
+     Оптимизировано через requestAnimationFrame — не тормозит при ресайзе.
+     ============================================================ */
+  (function() {
+    var root = document.documentElement;
+    var rafId = null;
+
+    function updateViewportClass() {
+      var w = window.innerWidth;
+      root.classList.remove('is-desktop', 'is-tablet', 'is-mobile');
+      if (w >= 1000) {
+        root.classList.add('is-desktop');
+      } else if (w >= 720) {
+        root.classList.add('is-tablet');
+      } else {
+        root.classList.add('is-mobile');
+      }
+    }
+
+    function scheduleUpdate() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateViewportClass);
+    }
+
+    updateViewportClass();
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+    window.addEventListener('orientationchange', scheduleUpdate, { passive: true });
+  })();
+
+  /* Плавный скролл по анкорам */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
+      var href = this.getAttribute('href');
       if (href === '#') return;
-      const target = document.querySelector(href);
+      var target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1255,9 +1299,10 @@
     });
   });
 
-  const toTop = document.getElementById('toTop');
+  /* Кнопка «наверх» */
+  var toTop = document.getElementById('toTop');
   if (toTop) {
-    const toggleToTop = () => {
+    var toggleToTop = function() {
       if (window.scrollY > 400) {
         toTop.classList.add('visible');
       } else {
@@ -1267,7 +1312,7 @@
     window.addEventListener('scroll', toggleToTop, { passive: true });
     toggleToTop();
 
-    toTop.addEventListener('click', () => {
+    toTop.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
