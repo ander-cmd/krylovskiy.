@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#EFEAE1">
  
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23EFEAE1'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23FF4D00'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO2VMQrCMBRFf0Vx8QziiTq5eCVP4gncvZK7V/AE4gHc3NzExU0QQRAnF0EQpU3TJvkTHxSafPj5kNBsQgghhBBCCCGEEEIIIYQQQgghhPgHmGKMMcYYY4wxxhhjjDHGGGOMMcYYY/4B5pxzzjnnnHPOOeecc84555xzzv0DzDnnnHPOOeecc84555xzzjnn/gHmnHPOOeecc84555xzzjnnnHPuH2DOOeecc84555xzzjnnnHPOOefcP8Ccc84555xzzjnnnHPOOeecc879A8w555xzzjnnnHPOOeecc84559w/wJxzzjnnnHPOOeecc84555xzzr0A3xw8K72q1OAAAAAASUVORK5CYII=">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO2VMQrCMBRFf0Vx8QziiTq5eCVP4gncvZK7V/AE4gHc3NzExU0QQRAnF0EQpU3TJvkTHxSafPj5kNBsQgghhBBCCCGEEEIIIYQQQgghhPgHmGKMMcYYY4wxxhhjjDHGGGOMMcYYY/4B5pxzzjnnnHPOOeecc84555xzzjnn/gHmnHPOOeecc84555xzzjnnnHPuH2DOOeecc84555xzzjnnnHPOOefcP8Ccc84555xzzjnnnHPOOeecc879A8w555xzzjnnnHPOOeecc84559w/wJxzzjnnnHPOOeecc84555xzzr0A3xw8K72q1OAAAAAASUVORK5CYII=">
  
 <style>
   /* === ШРИФТЫ === */
@@ -289,7 +289,14 @@
   .pain-note { color: var(--gray); font-size: 1rem; line-height: 1.55; max-width: 380px; }
  
   /* === GRIDS === */
-  .steps-grid, .includes-grid, .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .steps-grid, .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  
+  /* === ИЗМЕНЕНИЕ: СЕТКА "ЧТО ВХОДИТ" ПО 3 В РЯД === */
+  .includes-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+  }
   
   .step, .include-cell, .portfolio-item {
     background: var(--glass-bg); backdrop-filter: var(--glass-blur);
@@ -429,6 +436,9 @@
     .stat:first-child { border-left: none; }
     .offer-inner { grid-template-columns: 1fr; gap: 40px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    
+    /* Планшет: 2 плашки в ряд */
+    .includes-grid { grid-template-columns: repeat(2, 1fr); }
   }
  
   @media (max-width: 768px) {
@@ -471,6 +481,9 @@
     .faq-item summary { padding: 20px; font-size: 1rem; }
     .faq-item p { padding: 0 20px 20px 20px; }
     .to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+    
+    /* Мобильные: 1 плашка в ряд */
+    .includes-grid { grid-template-columns: 1fr; }
   }
  
   @media (max-width: 480px) {
