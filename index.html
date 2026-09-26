@@ -141,7 +141,6 @@
   }
   nav { display: flex; justify-content: space-between; align-items: center; }
   
-  /* ПРАВКА 1: Увеличен отступ между точкой и текстом */
   .logo {
     font-family: 'Unbounded', sans-serif;
     font-weight: 800;
@@ -150,7 +149,7 @@
     color: var(--ink);
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     text-transform: uppercase;
     text-shadow: none;
   }
@@ -444,10 +443,8 @@
       right: calc(-40px + 20px);
     }
     
-    /* ПРАВКА 2: Только outline-кнопка на всю ширину, оранжевая — по содержимому */
     .hero-cta { flex-direction: column; align-items: stretch; }
-    .hero-cta .btn-outline { width: 100%; }
-    .hero-cta .btn-orange { width: fit-content; align-self: flex-start; }
+    .hero-cta .btn { width: 100%; }
     
     .hero-stats-mobile-inner { 
       grid-template-columns: 1fr; 
